@@ -150,3 +150,31 @@ body {
 .css-guard when (@guard-flag = false) {
     color: #F00;
 }
+
+.parent-n-combined-selector-example {
+    .flex-align(center, space-between);
+
+    div {
+        height: 50px;
+        width: 150px;
+        .flex-align(center, center);
+        border: 1px solid #CCC;
+
+        &:hover {
+            color: @white;
+            background-color: #CCC;
+        }
+    }
+
+    .my-selector {
+        &2 {
+            background-color: #F00;
+        }
+        &3 {
+            background-color: #0F0;
+        }
+        &4 {
+            background-color: #00F;
+        }
+    }
+}
