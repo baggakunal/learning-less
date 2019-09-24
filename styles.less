@@ -118,3 +118,40 @@ body {
     }
     .create-columns(4);
 }
+
+.mixin-guards-example {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    .my-column(@w) when (@w <= 200px){
+        background-color: #0F0;
+    }
+    .my-column(@w) when (@w <= 100px){
+        background-color: #F00;
+    }
+    .my-column(@w) when (@w > 200px){
+        background-color: #00F;
+    }
+    .my-column(@w){
+        width: @w;
+        height: 50px;
+        .flex-align(center, center);
+    }
+
+    .create-columns(@n, @i: 1) when (@i <= @n) {
+        .column-@{i} {
+            .my-column(@i * 100px);
+        }
+        .create-columns(@n, @i + 1);
+    }
+    .create-columns(3);
+}
+
+@guard-flag: true;
+.css-guard when (@guard-flag = true) {
+    color: #0F0;
+}
+.css-guard when (@guard-flag = false) {
+    color: #F00;
+}
