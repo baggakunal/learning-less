@@ -94,3 +94,27 @@ body {
         .flex-align(center, center);
     }, 100px, 900px);
 }
+
+.recursive-mixin-example {
+    display: flex;
+    
+    div {
+        margin: 10px 5px;
+        border: 1px solid;
+
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .create-columns(@n, @i: 1) when (@i <= @n) {
+        .column-@{i} {
+            flex: @i; 
+        }
+        .create-columns(@n, @i + 1);
+    }
+    .create-columns(4);
+}
