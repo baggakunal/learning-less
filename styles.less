@@ -7,6 +7,7 @@ body {
 }
 
 @purple: #660059;
+@blue: #00F;
 @white: #FFF;
 
 .my-div {
@@ -14,4 +15,69 @@ body {
     color: @white;
     height: 100px;
     width: 100%;
+}
+
+// Variables can be used in selector names
+@my-selector: my-div2;
+
+.@{my-selector} {
+    background-color: @blue;
+    color: @white;
+    height: 200px;
+    width: @my-width;
+}
+
+// Variables are lazy-loaded, so can be used before they are defined
+@my-width: 50%;
+
+
+.extend-pseudo-example {
+    div {
+        &:extend(.extend-pseudo-example .blue);
+        background-color: #CCC;
+    }
+
+    .blue {
+        color: blue;
+    }
+
+    .class1 {
+        color: #F00;
+    }
+
+    .class2 {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    // Can extend .class1
+    .class3:extend(.extend-pseudo-example .class1) {
+        font-size: 20px;
+    }
+
+    // Can extend more than one class
+    .class4:extend(.extend-pseudo-example .class1, .extend-pseudo-example .class2) {
+        font-size: 40px;
+    }
+}
+
+.flex-align(@v-align, @h-align) {
+    display: flex;
+    align-items: @v-align;
+    justify-content: @h-align;
+}
+// Creating a mixin with paranthesis will not create a new class (.large-blue-text-mixin) in the generated css
+.large-blue-text-mixin() {
+    color: @blue;
+    font-size: 25px;
+}
+.div-h-w-mixin {
+    height: 200px;
+    width: 800px;
+}
+.mixin-example {
+    // Calling a mixin w or w/o paranthesis will not make any difference in the generated css
+    .flex-align(center, center);
+    .large-blue-text-mixin;
+    .div-h-w-mixin();
+    background-color: #CCC;
 }
