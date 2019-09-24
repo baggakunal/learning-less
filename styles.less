@@ -81,3 +81,16 @@ body {
     .div-h-w-mixin();
     background-color: #CCC;
 }
+
+.div-h-w-ruleset-mixin(@rules, @h, @w){
+    @rules();
+    height: @h;
+    width: @w;
+}
+.mixin-w-ruleset-example {
+    .div-h-w-ruleset-mixin({
+        background-color: @purple;
+        color: @white;
+        .flex-align(center, center);
+    }, 100px, 900px);
+}
